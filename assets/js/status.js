@@ -14,7 +14,7 @@
 //   ]
 // }
 
-const STATUS_URL = ''; // e.g. 'https://status.yourdomain.com/api/status.json'
+const STATUS_URL = 'https://status.josephdiaz.dev/api/status.json';
 const FETCH_TIMEOUT_MS = 4000;
 
 async function loadStatus() {
