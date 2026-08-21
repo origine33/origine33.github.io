@@ -285,11 +285,6 @@ h1.hero-title {
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
 }
-.cred-hash {
-  color: var(--accent);
-  width: 5.5rem;
-  flex-shrink: 0;
-}
 .cred-name, a.cred-name {
   color: var(--text);
   text-decoration: none;
