@@ -1,80 +1,50 @@
 # joseph@homelab
 
-Personal portfolio site. Plain HTML/CSS/JS, no build step, no framework — deploys as static files to anything.
+Personal site. Plain HTML/CSS/JS, no build step, no framework — deploys as static files to anything. Live at [josephdiaz.dev](https://josephdiaz.dev), hosted on GitHub Pages.
 
 ## Structure
 
 ```
-index.html                     the whole (single-page) site
-assets/css/style.css           all styles, dark-only terminal theme
-assets/js/status.js            optional live-status fetch for the #homelab section
+index.html                     landing page — "The Eye", a Q&A gate (ask questions about Joseph)
+portfolio.html                 the full site: about, experience, projects, homelab, printer-agent, contact
+assets/css/style.css           styles for portfolio.html — dark terminal theme
+assets/css/eye.css             styles for index.html — fire/ember theme, self-contained
+assets/js/status.js            live-status fetch for portfolio.html's #homelab section
+assets/js/eye.js               fire animation + Q&A wiring for index.html
 assets/fonts/                  JetBrains Mono (display) + IBM Plex Mono (body), self-hosted WOFF2
 favicon.svg
+CNAME                          josephdiaz.dev (GitHub Pages custom domain)
 ```
 
-## Before you publish — fill in the placeholders
-
-Search `index.html` for `<!-- TODO -->` comments. They mark everything that's
-still a stand-in from the design mockup:
-
-- hero tagline / role
-- about section bio, location, focus
-- the two non-homelab project entries
-- contact links (email, GitHub, resume)
-
-Everything else (the homelab architecture tree, the sample status table, the
-agent write-up) is real and already filled in.
-
 ## Preview locally
-
-Any static file server works, e.g.:
 
 ```
 cd portfolio-site
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+Then open `http://localhost:8000` (the Eye) or `http://localhost:8000/portfolio.html` (the full site).
 
 ## Deploy
 
-Pick one — all are free for a static site like this:
+Pushing to `main` auto-deploys via GitHub Pages (repo: `origine33/origine33.github.io`). DNS for `josephdiaz.dev` lives in Cloudflare, pointed at GitHub Pages' A records with HTTPS enforced.
 
-- **Netlify / Vercel**: connect the repo (or drag-and-drop the folder in Netlify's
-  dashboard), no build command needed, publish directory is the repo root.
-- **GitHub Pages**: push this folder to a repo, enable Pages on the `main`
-  branch / root in repo settings.
+## Live status (`portfolio.html` → `#homelab`)
 
-Once deployed, point your purchased domain's DNS at the host (Netlify/Vercel/GitHub
-Pages all give you the exact A/CNAME records to add) — this is the same regardless
-of which host you pick.
+`assets/js/status.js` polls `https://status.josephdiaz.dev/api/status.json`. That endpoint is a small Python server on the home Mac (`~/homelab-status/status_server.py`, reading real Docker container state), exposed *only* through a Cloudflare Tunnel — no ports opened on the home network. Both the status server and the tunnel run as LaunchAgents (`~/Library/LaunchAgents/com.joseph.homelab-status.plist` and `com.joseph.cloudflared-homelab-status.plist`) so they survive reboots.
 
-## Wiring up live status (later)
+## The Eye (`index.html`)
 
-`assets/js/status.js` is already built to poll a JSON endpoint and update the
-status table on the `#homelab` section — it just isn't pointed at anything yet
-(`STATUS_URL` is empty), so the page currently shows the static sample data.
+The landing page's Q&A is answered by a Cloudflare Worker (separate project at `~/eye-worker`, not part of this repo), reachable at `https://ask.josephdiaz.dev`. The Worker holds an Anthropic API key as a secret and a system prompt containing everything true about Joseph that's on this site — it can't invent facts beyond that. Rate-limited per IP and with a global daily cap (both enforced via a Workers KV namespace) to bound cost from abuse.
 
-To make it live without exposing your home network directly:
+If that endpoint is ever unreachable, `assets/js/eye.js` falls back to a small local keyword-matched FAQ (`KNOWLEDGE` array in that file) so the page never just errors out.
 
-1. Run a small script/container on the home server that reports service health
-   as JSON, shaped like:
-   ```json
-   { "services": [
-       { "id": "media-stack", "status": "up", "uptime": "4d" },
-       { "id": "sync-service", "status": "up", "uptime": "4d" },
-       { "id": "homelab-agent", "status": "up", "uptime": "39d" }
-   ] }
-   ```
-2. Expose *only* that endpoint publicly with a [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
-   (free, outbound-only from the home server — no router port-forwarding, and
-   nothing else on the home network becomes reachable).
-3. Set `STATUS_URL` in `assets/js/status.js` to that tunnel's public URL.
-
-If the endpoint is ever unreachable, the widget shows an honest "unavailable"
-state rather than silently freezing on stale data.
+To redeploy the Worker after changing its code:
+```
+cd ~/eye-worker
+npx wrangler deploy
+```
 
 ## Font licensing
 
-JetBrains Mono and IBM Plex Mono are both SIL Open Font License 1.1 — license
-text is included alongside the font files in `assets/fonts/`.
+JetBrains Mono and IBM Plex Mono are both SIL Open Font License 1.1 — license text is included alongside the font files in `assets/fonts/`.

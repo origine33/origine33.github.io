@@ -3,281 +3,81 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>joseph@homelab</title>
-  <meta name="description" content="Portfolio of Joseph Diaz — software engineer and homelab builder." />
-  <meta name="theme-color" content="#0b0f14" />
-  <meta property="og:title" content="joseph@homelab" />
-  <meta property="og:description" content="Portfolio of Joseph Diaz — software engineer and homelab builder." />
+  <title>The Eye</title>
+  <meta name="description" content="Ask the Eye anything about Joseph Diaz." />
+  <meta name="theme-color" content="#0a0605" />
+  <meta property="og:title" content="The Eye" />
+  <meta property="og:description" content="Ask the Eye anything about Joseph Diaz." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/eye.css" />
 </head>
 <body>
 
-  <div class="titlebar">
-    <div class="titlebar-inner">
-      <div class="dots"><span></span><span></span><span></span></div>
-      <div class="titlebar-tab"><strong>joseph@homelab</strong>:~ — zsh — 100x40</div>
-      <nav class="titlebar-nav">
-        <a href="#about">about</a>
-        <a href="#experience">experience</a>
-        <a href="#projects">projects</a>
-        <a href="#homelab">homelab</a>
-        <a href="#printer-agent">printer-agent</a>
-        <a href="#contact">contact</a>
-      </nav>
+  <div class="stage">
+    <canvas class="fire-canvas" data-fire aria-hidden="true"></canvas>
+
+    <div class="eye-wrap" aria-hidden="true">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="iris" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#ffb347" />
+            <stop offset="35%" stop-color="#ff3b1a" />
+            <stop offset="75%" stop-color="#7a0f04" />
+            <stop offset="100%" stop-color="#1a0402" />
+          </radialGradient>
+          <filter id="soften" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" />
+          </filter>
+          <filter id="blur-lg" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="16" />
+          </filter>
+        </defs>
+
+        <g class="glow" transform="rotate(-6 200 100)">
+          <path d="M 30,100 C 30,45 140,15 200,15 C 260,15 370,45 370,100 C 370,155 260,185 200,185 C 140,185 30,155 30,100 Z"
+                fill="#ff2a12" opacity="0.35" filter="url(#blur-lg)" />
+        </g>
+
+        <g transform="rotate(-6 200 100)">
+          <path d="M 40,100 C 40,55 135,30 200,30 C 265,30 360,55 360,100 C 360,145 265,170 200,170 C 135,170 40,145 40,100 Z"
+                fill="url(#iris)" stroke="#3a0a04" stroke-width="3" filter="url(#soften)" />
+          <path d="M 40,100 C 40,55 135,30 200,30 C 265,30 360,55 360,100 C 360,145 265,170 200,170 C 135,170 40,145 40,100 Z"
+                fill="none" stroke="#ffd7a0" stroke-width="1" opacity="0.5" />
+          <rect class="pupil" x="191" y="35" width="18" height="130" rx="9" fill="#0a0503" />
+        </g>
+      </svg>
     </div>
+
+    <h1 class="eyebrow">The Eye</h1>
+    <p class="subline">It sees the whole of the Archive. Ask it anything about <strong>Joseph Diaz</strong> — his work, his skills, his homelab, his craft.</p>
+
+    <form class="ask-form" data-ask-form>
+      <input
+        class="ask-input"
+        type="text"
+        name="question"
+        data-ask-input
+        placeholder="Ask the Eye…"
+        autocomplete="off"
+        maxlength="200"
+      />
+      <button class="ask-submit" type="submit">Ask</button>
+    </form>
+
+    <div class="chips">
+      <button type="button" class="chip" data-chip>Where does Joseph work?</button>
+      <button type="button" class="chip" data-chip>What is the homelab?</button>
+      <button type="button" class="chip" data-chip>How can I reach him?</button>
+    </div>
+
+    <p class="output" data-ask-output></p>
   </div>
 
-  <main class="wrap">
+  <div class="gate-links">
+    <a href="/portfolio.html">enter the archive →</a>
+  </div>
 
-    <section class="hero">
-      <div class="hero-line"><span class="prompt">guest@homelab</span><span class="path">:~</span>$ whoami</div>
-      <h1 class="hero-title">Joseph Diaz<span class="cursor">&nbsp;</span></h1>
-      <p class="hero-tagline">Senior Workplace Technology Lead: AI &amp; ML. Building things during the day, running a homelab and an autonomous ops agent after hours.</p>
-      <div class="hero-meta">
-        <div>uptime: <span>39d on this build</span></div>
-        <div>shell: <span>zsh</span></div>
-        <div>host: <span>homelab.local</span></div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="cmd"><span class="prompt">$ cat about.md</span><span class="rule"></span></div>
-      <div class="about-body">
-        <p>A technology enthusiast driven by where things are headed. I build and ship AI and ML systems as part of Major League Baseball Technology, and outside of work I run the same kind of experiments at home — most recently a homelab that mostly runs itself.</p>
-        <dl class="facts">
-          <dt>based</dt><dd>New York, NY</dd>
-          <dt>focus</dt><dd>AI/ML enablement, workplace technology, platform engineering</dd>
-          <dt>stack</dt>
-          <dd>
-            <span class="tag">Python</span>
-            <span class="tag">Datadog</span>
-            <span class="tag">Machine Learning</span>
-            <span class="tag">Claude Code</span>
-            <span class="tag">Prompt Engineering</span>
-          </dd>
-          <dt>education</dt>
-          <dd>B.S. Computer Information Systems, Lehman College</dd>
-        </dl>
-
-        <div class="panel-label" style="margin-top: var(--space-4);">// certifications</div>
-        <div class="cred-log">
-          <div class="cred-line"><span class="cred-date">aug 2026</span><a class="cred-name" href="https://www.credly.com/badges/b04c1371-9a6f-42fd-89a9-8b664f79ed10/linked_in_profile" target="_blank" rel="noopener">Okta for AI Agents</a><span class="cred-issuer"> — Okta</span></div>
-          <div class="cred-line"><span class="cred-date">jun 2026</span><a class="cred-name" href="https://www.coursera.org/account/accomplishments/specialization/OZE96OSJ0IGH" target="_blank" rel="noopener">Prompt Engineering</a><span class="cred-issuer"> — Vanderbilt University</span></div>
-          <div class="cred-line"><span class="cred-date">jun 2026</span><a class="cred-name" href="https://www.coursera.org/account/accomplishments/records/ICUQ3NPE1EM8" target="_blank" rel="noopener">ChatGPT Advanced Data Analysis</a><span class="cred-issuer"> — Vanderbilt University</span></div>
-          <div class="cred-line"><span class="cred-date">jun 2026</span><a class="cred-name" href="https://www.coursera.org/account/accomplishments/records/W1350B8WLIB4" target="_blank" rel="noopener">Prompt Engineering for ChatGPT</a><span class="cred-issuer"> — Vanderbilt University</span></div>
-          <div class="cred-line"><span class="cred-date">may 2026</span><a class="cred-name" href="https://www.coursera.org/account/accomplishments/records/R38987Q6MJXQ" target="_blank" rel="noopener">Unsupervised Learning, Recommenders, Reinforcement Learning</a><span class="cred-issuer"> — DeepLearning.AI</span></div>
-          <div class="cred-line"><span class="cred-date">may 2026</span><a class="cred-name" href="https://www.coursera.org/account/accomplishments/specialization/5C5P1I5KAZZ6" target="_blank" rel="noopener">Machine Learning Specialization</a><span class="cred-issuer"> — Stanford Online</span></div>
-          <div class="cred-line"><span class="cred-date">may 2026</span><a class="cred-name" href="https://www.coursera.org/account/accomplishments/specialization/5C5P1I5KAZZ6" target="_blank" rel="noopener">Machine Learning</a><span class="cred-issuer"> — DeepLearning.AI</span></div>
-          <div class="cred-line"><span class="cred-date">may 2026</span><a class="cred-name" href="https://www.coursera.org/account/accomplishments/records/Z9OP1PV91OEC" target="_blank" rel="noopener">Advanced Learning Algorithms</a><span class="cred-issuer"> — DeepLearning.AI</span></div>
-          <div class="cred-line"><span class="cred-date">may 2026</span><span class="cred-name">Supervised Machine Learning: Regression and Classification</span><span class="cred-issuer"> — DeepLearning.AI</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience">
-      <div class="cmd"><span class="prompt">$ history</span><span class="rule"></span></div>
-      <div class="role-list">
-        <div class="role">
-          <div class="role-head">
-            <span class="role-title">Service Desk &amp; Technical Analyst</span>
-            <span class="role-company">Major League Baseball</span>
-            <span class="role-dates">Nov 2020 — present</span>
-          </div>
-          <ul class="role-bullets">
-            <li>Engineered an end-to-end observability pipeline in <a href="#printer-agent">Datadog</a>, aggregating metrics from distributed hardware assets into real-time dashboards that cut response times to critical events.</li>
-            <li>Used Python and data analysis to turn raw ticketing logs into recurring-incident insight reports for cross-functional engineering teams.</li>
-            <li>Applied foundational ML (linear/logistic regression, clustering) to historical operations data, exploring predictive models for system downtime.</li>
-            <li>Maintained technical documentation and data schemas across the incident management ecosystem to keep automated reporting accurate.</li>
-          </ul>
-        </div>
-        <div class="role">
-          <div class="role-head">
-            <span class="role-title">IT Service Desk &amp; Data Analyst</span>
-            <span class="role-company">Major League Baseball</span>
-            <span class="role-dates">Oct 2019 — Oct 2020</span>
-          </div>
-          <ul class="role-bullets">
-            <li>Parsed, cleaned, and analyzed historical account-provisioning logs with Python to optimize access management workflows.</li>
-            <li>Used AI platforms (ChatGPT, Claude, Gemini) to accelerate script development, draft technical documentation, and troubleshoot network connectivity logs.</li>
-            <li>Managed asset and inventory datasets, tracking hardware/software lifecycles through structured database management.</li>
-          </ul>
-        </div>
-        <div class="role">
-          <div class="role-head">
-            <span class="role-title">Information Security Intern</span>
-            <span class="role-company">Major League Baseball</span>
-            <span class="role-dates">Jun 2017 — Aug 2017</span>
-          </div>
-          <ul class="role-bullets">
-            <li>Conducted social media vetting and background analysis for candidates under strict confidentiality standards.</li>
-            <li>Supported database management and cross-functional coordination for onboarding review.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="cmd"><span class="prompt">$ ls -la ~/projects</span><span class="rule"></span></div>
-      <div class="proj-list">
-        <div class="proj">
-          <div class="proj-name"><span class="slash">/</span><a href="#homelab">homelab-agent</a><span class="proj-pin">pinned</span></div>
-          <div class="proj-desc">A home server running a Docker media/ops stack, maintained by a Claude-based agent that health-checks, diagnoses, and fixes things on its own.</div>
-          <div class="proj-tags">docker · claude · macos</div>
-        </div>
-        <div class="proj">
-          <div class="proj-name"><span class="slash">/</span><a href="#printer-agent">printer-agent</a><span class="proj-pin">pinned</span></div>
-          <div class="proj-desc">Turned an existing PrinterLogic install into a full monitoring system: a live Datadog dashboard, automatic Slack alerts and reports, and a Slack bot IT can just ask.</div>
-          <div class="proj-tags">snmp · datadog · slack</div>
-        </div>
-        <div class="proj">
-          <div class="proj-name"><span class="slash">/</span><span class="fill">more to come…</span></div>
-          <div class="proj-desc fill">still building — check back soon.</div>
-          <div class="proj-tags"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="homelab">
-      <div class="cmd"><span class="prompt">$ ssh homelab.local</span><span class="rule"></span></div>
-
-      <div class="homelab-grid">
-        <div>
-          <div class="panel-label">// architecture</div>
-          <div class="tree">homelab/
-<span class="dim">├──</span> <span class="node">host-01/</span>              <span class="meta">Apple Silicon · 16GB RAM · macOS</span>
-<span class="dim">│   └──</span> <span class="node">docker/media-network</span>
-<span class="dim">│       ├──</span> <span class="node">media-stack</span>    <span class="meta">:8080 webui</span>
-<span class="dim">│       └──</span> <span class="node">sync-service</span>   <span class="meta">:5030 webui</span>
-<span class="dim">├──</span> <span class="node">drive1/</span>               <span class="meta">APFS · 1TB · USB → media_data</span>
-<span class="dim">├──</span> <span class="node">drive2/</span>               <span class="meta">USB → media_data2</span>
-<span class="dim">└──</span> <span class="node">homelab-agent</span>         <span class="meta">claude-powered · autonomous ops</span></div>
-        </div>
-
-        <div>
-          <div class="panel-label">// live status</div>
-          <div class="status-table">
-            <table class="status" data-status-table>
-              <thead><tr><th>service</th><th>state</th><th>up</th></tr></thead>
-              <tbody>
-                <tr data-service="media-stack">
-                  <td class="svc">media-stack</td>
-                  <td><span class="pill up" data-pill>up</span></td>
-                  <td data-uptime>4d</td>
-                </tr>
-                <tr data-service="sync-service">
-                  <td class="svc">sync-service</td>
-                  <td><span class="pill up" data-pill>up</span></td>
-                  <td data-uptime>4d</td>
-                </tr>
-                <tr data-service="homelab-agent">
-                  <td class="svc">homelab-agent</td>
-                  <td><span class="pill up" data-pill>up</span></td>
-                  <td data-uptime>39d</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="status-caption" data-status-caption>// loading live status…</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="homelab-copy">
-        <p>The stack runs on a small home server instead of a dedicated NAS OS — Apple Silicon rules out the usual x86 bare-metal options, so everything lives in Docker on macOS instead. Config and secrets stay on the internal disk; bulk media sits on external APFS drives.</p>
-        <p>Since July 2026 it's been looked after by an <strong>autonomous agent</strong> built on Claude: it runs from a set of runbooks (health check, diagnose, restart, backup), reads and writes its own memory of what it's learned about the system, and fixes routine problems without being asked — it only pauses for anything destructive.</p>
-      </div>
-    </section>
-
-    <section id="printer-agent">
-      <div class="cmd"><span class="prompt">$ ./printer-agent status</span><span class="rule"></span></div>
-
-      <div class="homelab-copy">
-        <p>Built on top of an existing PrinterLogic install for a printer fleet at work — no new hardware, no new paid software, just automation layered on data the fleet was already producing.</p>
-      </div>
-
-      <div class="panel-label">// build log</div>
-      <ol class="steps">
-        <li class="step">
-          <span class="step-index">01</span>
-          <div>
-            <div class="step-title">Found the local monitoring source</div>
-            <div class="step-desc">Located the PrinterLogic desktop client already running and its SNMP log, which tracks whether each printer on the network is reachable.</div>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-index">02</span>
-          <div>
-            <div class="step-title">Polled for live detail</div>
-            <div class="step-desc">Went beyond up/down status by polling each printer directly for toner level per color, paper tray level and size, and error codes.</div>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-index">03</span>
-          <div>
-            <div class="step-title">Built a Datadog dashboard</div>
-            <div class="step-desc">Shipped the metrics to Datadog: total healthy printers, toner by printer/color, paper by tray, and a breakdown of error types across the fleet.</div>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-index">04</span>
-          <div>
-            <div class="step-title">Added an automatic alert</div>
-            <div class="step-desc">A Datadog monitor flags any printer the moment a cartridge hits empty or drops below a low threshold.</div>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-index">05</span>
-          <div>
-            <div class="step-title">Automated a daily report</div>
-            <div class="step-desc">A scheduled script checks every printer each morning and posts a PDF report to Slack listing what needs toner or paper.</div>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-index">06</span>
-          <div>
-            <div class="step-title">Built a Slack bot for on-demand answers</div>
-            <div class="step-desc">IT staff can message it directly — "toner", "status", a printer's name — and get a live answer instead of opening a console.</div>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-index">07</span>
-          <div>
-            <div class="step-title">Automated weekly maintenance</div>
-            <div class="step-desc">The fleet power-cycles automatically every Sunday morning, with a Slack summary confirming how many printers rebooted successfully.</div>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-index">08</span>
-          <div>
-            <div class="step-title">Documented everything</div>
-            <div class="step-desc">A reference guide covers every script, schedule, and setting, so the system can be maintained or extended without starting from scratch.</div>
-          </div>
-        </li>
-      </ol>
-
-      <div class="homelab-copy">
-        <p>None of it required new infrastructure — it reused data the fleet was already producing. The same pattern (parse what already exists, automate the repetitive checks, add a simple way to ask) applies to almost any recurring IT task: server health, license renewals, backup checks, ticket triage.</p>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="cmd"><span class="prompt">$ ./contact.sh</span><span class="rule"></span></div>
-      <p style="color:var(--text-dim); max-width:56ch;">Open to new roles in AI/ML and platform engineering.</p>
-      <div class="contact-links">
-        <a href="mailto:josephdiaz17@gmail.com">email →</a>
-        <a href="https://github.com/origine33" target="_blank" rel="noopener">github →</a>
-        <a href="https://www.linkedin.com/in/josephdiaz17" target="_blank" rel="noopener">linkedin →</a>
-      </div>
-    </section>
-
-    <footer>
-      <div class="motd">joseph@homelab — last login: Thu Aug 20 2026</div>
-      <div>design concept · dark mode only, by design</div>
-    </footer>
-
-  </main>
-
-  <script src="/assets/js/status.js"></script>
+  <script src="/assets/js/eye.js"></script>
 </body>
 </html>
