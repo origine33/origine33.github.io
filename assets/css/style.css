@@ -264,6 +264,50 @@ h1.hero-title {
   font-size: 0.78rem;
 }
 
+/* ---------- experience ---------- */
+
+.role-list {
+  display: grid;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.role {
+  background: var(--surface);
+  padding: var(--space-3);
+  transition: background 0.15s ease;
+}
+.role:hover { background: var(--surface-raised); }
+
+.role-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6em;
+}
+.role-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.role-company { color: var(--accent); font-size: 0.8rem; }
+.role-dates {
+  margin-left: auto;
+  color: var(--text-faint);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.role-bullets {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.1em;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+.role-bullets li { margin-bottom: 0.35rem; }
+.role-bullets li:last-child { margin-bottom: 0; }
+
 /* ---------- projects ---------- */
 
 .proj-list {
