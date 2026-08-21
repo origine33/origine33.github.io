@@ -72,7 +72,7 @@ const KNOWLEDGE = [
   },
   {
     keywords: ["hobbies", "hobby", "runescape", "basketball", "pokemon", "pokémon", "free time", "spare time", "outside of work"],
-    answer: "Beyond the terminal, he plays RuneScape (voldimordt), follows basketball, and keeps up with Pokémon."
+    answer: "Beyond the terminal: RuneScape (voldimordt), basketball (guard, 3-point shooter), and Pokémon (Water type, Squirtle is his favorite)."
   },
   {
     keywords: ["hello", "hi there", "hey", "greetings", "good morning", "good evening"],
