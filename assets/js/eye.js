@@ -71,6 +71,10 @@ const KNOWLEDGE = [
     answer: "This very Archive — built with Claude Code, hosted on GitHub Pages, watched over by an Eye of no small vanity."
   },
   {
+    keywords: ["hobbies", "hobby", "runescape", "basketball", "pokemon", "pokémon", "free time", "spare time", "outside of work"],
+    answer: "Beyond the terminal, he plays RuneScape (voldimordt), follows basketball, and keeps up with Pokémon."
+  },
+  {
     keywords: ["hello", "hi there", "hey", "greetings", "good morning", "good evening"],
     answer: "The Eye sees you. Ask, and it shall answer what it knows of Joseph."
   },
