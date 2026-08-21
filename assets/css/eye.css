@@ -217,7 +217,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   min-height: 1.6rem;
   margin-top: 1.5rem;
   padding: 0 0.25rem;
-  color: var(--text-dim);
+  color: var(--text);
   font-size: 0.92rem;
   line-height: 1.75;
   text-align: center;
