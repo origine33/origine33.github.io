@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>joseph@homelab</title>
+  <meta name="description" content="Portfolio of Joseph Diaz — software engineer and homelab builder." />
+  <meta name="theme-color" content="#0b0f14" />
+  <meta property="og:title" content="joseph@homelab" />
+  <meta property="og:description" content="Portfolio of Joseph Diaz — software engineer and homelab builder." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+
+  <div class="titlebar">
+    <div class="titlebar-inner">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="titlebar-tab"><strong>joseph@homelab</strong>:~ — zsh — 100x40</div>
+      <nav class="titlebar-nav">
+        <a href="#about">about</a>
+        <a href="#projects">projects</a>
+        <a href="#homelab">homelab</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="wrap">
+
+    <section class="hero">
+      <div class="hero-line"><span class="prompt">guest@homelab</span><span class="path">:~</span>$ whoami</div>
+      <h1 class="hero-title">Joseph Diaz<span class="cursor">&nbsp;</span></h1>
+      <p class="hero-tagline">Senior Workplace Technology Lead: AI &amp; ML. Building things during the day, running a homelab and an autonomous ops agent after hours.</p>
+      <div class="hero-meta">
+        <div>uptime: <span>39d on this build</span></div>
+        <div>shell: <span>zsh</span></div>
+        <div>host: <span>homelab.local</span></div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="cmd"><span class="prompt">$ cat about.md</span><span class="rule"></span></div>
+      <div class="about-body">
+        <p>A technology enthusiast driven by where things are headed. I build and ship AI and ML systems as part of Major League Baseball Technology, and outside of work I run the same kind of experiments at home — most recently a homelab that mostly runs itself.</p>
+        <dl class="facts">
+          <dt>based</dt><dd>New York, NY</dd>
+          <dt>focus</dt><dd>AI/ML enablement, workplace technology, platform engineering</dd>
+          <dt>stack</dt>
+          <dd>
+            <span class="tag">macOS / Apple Silicon</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Claude Agent SDK</span>
+            <span class="tag">TypeScript</span>
+          </dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="cmd"><span class="prompt">$ ls -la ~/projects</span><span class="rule"></span></div>
+      <div class="proj-list">
+        <div class="proj">
+          <div class="proj-name"><span class="slash">/</span><a href="#homelab">homelab-agent</a><span class="proj-pin">pinned</span></div>
+          <div class="proj-desc">A home server running a Docker media/ops stack, maintained by a Claude-based agent that health-checks, diagnoses, and fixes things on its own.</div>
+          <div class="proj-tags">docker · claude · macos</div>
+        </div>
+        <div class="proj">
+          <div class="proj-name"><span class="slash">/</span>printer-agent</div>
+          <div class="proj-desc">Reports on every printer across the fleet, triggers on keyword commands to pull printer info on demand, and feeds a live dashboard in Datadog.</div>
+          <div class="proj-tags">agent · datadog · fleet ops</div>
+        </div>
+        <div class="proj">
+          <div class="proj-name"><span class="slash">/</span><span class="fill">more to come…</span></div>
+          <div class="proj-desc fill">still building — check back soon.</div>
+          <div class="proj-tags"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="homelab">
+      <div class="cmd"><span class="prompt">$ ssh homelab.local</span><span class="rule"></span></div>
+
+      <div class="homelab-grid">
+        <div>
+          <div class="panel-label">// architecture</div>
+          <div class="tree">homelab/
+<span class="dim">├──</span> <span class="node">host-01/</span>              <span class="meta">Apple Silicon · 16GB RAM · macOS</span>
+<span class="dim">│   └──</span> <span class="node">docker/media-network</span>
+<span class="dim">│       ├──</span> <span class="node">media-stack</span>    <span class="meta">:8080 webui</span>
+<span class="dim">│       └──</span> <span class="node">sync-service</span>   <span class="meta">:5030 webui</span>
+<span class="dim">├──</span> <span class="node">drive1/</span>               <span class="meta">APFS · 1TB · USB → media_data</span>
+<span class="dim">├──</span> <span class="node">drive2/</span>               <span class="meta">USB → media_data2</span>
+<span class="dim">└──</span> <span class="node">homelab-agent</span>         <span class="meta">claude-powered · autonomous ops</span></div>
+        </div>
+
+        <div>
+          <div class="panel-label">// live status</div>
+          <div class="status-table">
+            <table class="status" data-status-table>
+              <thead><tr><th>service</th><th>state</th><th>up</th></tr></thead>
+              <tbody>
+                <tr data-service="media-stack">
+                  <td class="svc">media-stack</td>
+                  <td><span class="pill up" data-pill>up</span></td>
+                  <td data-uptime>4d</td>
+                </tr>
+                <tr data-service="sync-service">
+                  <td class="svc">sync-service</td>
+                  <td><span class="pill up" data-pill>up</span></td>
+                  <td data-uptime>4d</td>
+                </tr>
+                <tr data-service="homelab-agent">
+                  <td class="svc">homelab-agent</td>
+                  <td><span class="pill up" data-pill>up</span></td>
+                  <td data-uptime>39d</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="status-caption" data-status-caption>// sample readout — wires to a live status endpoint (Cloudflare Tunnel) at launch</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="homelab-copy">
+        <p>The stack runs on a small home server instead of a dedicated NAS OS — Apple Silicon rules out the usual x86 bare-metal options, so everything lives in Docker on macOS instead. Config and secrets stay on the internal disk; bulk media sits on external APFS drives.</p>
+        <p>Since July 2026 it's been looked after by an <strong>autonomous agent</strong> built on Claude: it runs from a set of runbooks (health check, diagnose, restart, backup), reads and writes its own memory of what it's learned about the system, and fixes routine problems without being asked — it only pauses for anything destructive.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="cmd"><span class="prompt">$ ./contact.sh</span><span class="rule"></span></div>
+      <p style="color:var(--text-dim); max-width:56ch;">Open to <span class="fill"><!-- TODO: what you're open to — roles, collaborations, questions about the setup --></span>.</p>
+      <div class="contact-links">
+        <a href="mailto:josephdiaz17@gmail.com">email →</a>
+        <a href="#" class="fill"><!-- TODO: github link -->github →</a>
+        <a href="https://www.linkedin.com/in/josephdiaz17" target="_blank" rel="noopener">linkedin →</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="motd">joseph@homelab — last login: Thu Aug 20 2026</div>
+      <div>design concept · dark mode only, by design</div>
+    </footer>
+
+  </main>
+
+  <script src="/assets/js/status.js"></script>
+</body>
+</html>
