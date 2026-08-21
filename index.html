@@ -22,6 +22,7 @@
         <a href="#about">about</a>
         <a href="#projects">projects</a>
         <a href="#homelab">homelab</a>
+        <a href="#printer-agent">printer-agent</a>
         <a href="#contact">contact</a>
       </nav>
     </div>
@@ -67,9 +68,9 @@
           <div class="proj-tags">docker · claude · macos</div>
         </div>
         <div class="proj">
-          <div class="proj-name"><span class="slash">/</span>printer-agent</div>
-          <div class="proj-desc">Reports on every printer across the fleet, triggers on keyword commands to pull printer info on demand, and feeds a live dashboard in Datadog.</div>
-          <div class="proj-tags">agent · datadog · fleet ops</div>
+          <div class="proj-name"><span class="slash">/</span><a href="#printer-agent">printer-agent</a><span class="proj-pin">pinned</span></div>
+          <div class="proj-desc">Turned an existing PrinterLogic install into a full monitoring system: a live Datadog dashboard, automatic Slack alerts and reports, and a Slack bot IT can just ask.</div>
+          <div class="proj-tags">snmp · datadog · slack</div>
         </div>
         <div class="proj">
           <div class="proj-name"><span class="slash">/</span><span class="fill">more to come…</span></div>
@@ -126,6 +127,78 @@
       <div class="homelab-copy">
         <p>The stack runs on a small home server instead of a dedicated NAS OS — Apple Silicon rules out the usual x86 bare-metal options, so everything lives in Docker on macOS instead. Config and secrets stay on the internal disk; bulk media sits on external APFS drives.</p>
         <p>Since July 2026 it's been looked after by an <strong>autonomous agent</strong> built on Claude: it runs from a set of runbooks (health check, diagnose, restart, backup), reads and writes its own memory of what it's learned about the system, and fixes routine problems without being asked — it only pauses for anything destructive.</p>
+      </div>
+    </section>
+
+    <section id="printer-agent">
+      <div class="cmd"><span class="prompt">$ ./printer-agent status</span><span class="rule"></span></div>
+
+      <div class="homelab-copy">
+        <p>Built on top of an existing PrinterLogic install for a printer fleet at work — no new hardware, no new paid software, just automation layered on data the fleet was already producing.</p>
+      </div>
+
+      <div class="panel-label">// build log</div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-index">01</span>
+          <div>
+            <div class="step-title">Found the local monitoring source</div>
+            <div class="step-desc">Located the PrinterLogic desktop client already running and its SNMP log, which tracks whether each printer on the network is reachable.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-index">02</span>
+          <div>
+            <div class="step-title">Polled for live detail</div>
+            <div class="step-desc">Went beyond up/down status by polling each printer directly for toner level per color, paper tray level and size, and error codes.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-index">03</span>
+          <div>
+            <div class="step-title">Built a Datadog dashboard</div>
+            <div class="step-desc">Shipped the metrics to Datadog: total healthy printers, toner by printer/color, paper by tray, and a breakdown of error types across the fleet.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-index">04</span>
+          <div>
+            <div class="step-title">Added an automatic alert</div>
+            <div class="step-desc">A Datadog monitor flags any printer the moment a cartridge hits empty or drops below a low threshold.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-index">05</span>
+          <div>
+            <div class="step-title">Automated a daily report</div>
+            <div class="step-desc">A scheduled script checks every printer each morning and posts a PDF report to Slack listing what needs toner or paper.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-index">06</span>
+          <div>
+            <div class="step-title">Built a Slack bot for on-demand answers</div>
+            <div class="step-desc">IT staff can message it directly — "toner", "status", a printer's name — and get a live answer instead of opening a console.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-index">07</span>
+          <div>
+            <div class="step-title">Automated weekly maintenance</div>
+            <div class="step-desc">The fleet power-cycles automatically every Sunday morning, with a Slack summary confirming how many printers rebooted successfully.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-index">08</span>
+          <div>
+            <div class="step-title">Documented everything</div>
+            <div class="step-desc">A reference guide covers every script, schedule, and setting, so the system can be maintained or extended without starting from scratch.</div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="homelab-copy">
+        <p>None of it required new infrastructure — it reused data the fleet was already producing. The same pattern (parse what already exists, automate the repetitive checks, add a simple way to ask) applies to almost any recurring IT task: server health, license renewals, backup checks, ticket triage.</p>
       </div>
     </section>
 

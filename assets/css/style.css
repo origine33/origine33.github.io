@@ -414,6 +414,47 @@ table.status td.svc { color: var(--text); font-weight: 500; }
 }
 .homelab-copy strong { color: var(--text); font-weight: 500; }
 
+/* ---------- step list (printer-agent build log) ---------- */
+
+.steps {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+.step {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; }
+.step-index {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--accent);
+  padding-top: 0.15rem;
+}
+.step-title {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+.step-desc {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .step { grid-template-columns: 1.75rem 1fr; }
+}
+
 /* ---------- contact ---------- */
 
 .contact-links {
