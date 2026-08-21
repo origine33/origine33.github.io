@@ -199,7 +199,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .chip {
   background: transparent;
   border: 1px solid var(--border);
-  color: var(--text-faint);
+  color: var(--text);
   font-family: var(--font-body);
   font-size: 0.75rem;
   padding: 0.35rem 0.7rem;
@@ -207,7 +207,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   cursor: pointer;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
-.chip:hover { color: var(--text); border-color: var(--ember-4); }
+.chip:hover { color: var(--ember-4); border-color: var(--ember-4); }
 
 .output {
   position: relative;
