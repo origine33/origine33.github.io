@@ -122,21 +122,44 @@ function answerFor(question) {
 // on the embed so it never captures clicks/scroll for its own cursor-tracking
 // or camera controls; the page scrolls normally no matter where the cursor
 // is). It's a cross-origin iframe, so we can't tell when the 3D scene has
-// actually finished rendering (only when the iframe's own document has
-// loaded, which happens before that). So: the static screenshot shows
-// immediately and stays up — for reduced-motion visitors, while the live
-// embed loads, and if the script never runs at all — and this only
-// crossfades to the live embed once its `load` event fires.
+// actually finished rendering — the iframe's `load` event only means the
+// Spline app's own shell has loaded, which shows a plain BLACK loading
+// screen of its own before the scene (10-20s+ on a slow connection/GPU,
+// worse on mobile) finally renders. Crossfading on `load` alone risked
+// revealing that black loading screen instead of either our fallback image
+// or the finished scene — which is exactly the "sometimes just shows black"
+// bug. So: require `load` to have fired AND a minimum buffer to have
+// elapsed since we set `src`, whichever is later, before crossfading — this
+// isn't a perfect signal, but it makes revealing the black interim state
+// far less likely.
 (function () {
   const embed = document.querySelector("[data-bot-embed]");
   if (!embed || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+  const MIN_DELAY_MS = 8000;
   const fallback = document.querySelector("[data-bot-fallback]");
-  embed.addEventListener("load", () => {
+  let loaded = false;
+
+  function reveal() {
     embed.classList.add("is-loaded");
     if (fallback) fallback.classList.add("is-hidden");
+  }
+
+  embed.addEventListener("load", () => {
+    loaded = true;
   });
+
+  const startedAt = Date.now();
   embed.src = embed.dataset.src;
+
+  (function waitForReadyish() {
+    const elapsed = Date.now() - startedAt;
+    if (loaded && elapsed >= MIN_DELAY_MS) {
+      reveal();
+      return;
+    }
+    setTimeout(waitForReadyish, 300);
+  })();
 })();
 
 // ---------- UI wiring ----------

@@ -169,6 +169,14 @@ a:focus-visible, button:focus-visible {
 
 @media (max-width: 640px) {
   .titlebar-tab { display: none; }
+  .titlebar-inner {
+    /* A bit of breathing room above the bar's content — on notched/Dynamic
+       Island phones this also clears that cutout instead of sitting flush
+       against it. */
+    padding-top: max(0.6rem, env(safe-area-inset-top));
+    padding-bottom: 0.6rem;
+    height: auto;
+  }
   .titlebar-nav {
     overflow-x: auto;
     flex-shrink: 1;
