@@ -21,24 +21,23 @@
 }
 
 :root {
-  --bg: #0a0605;
-  --surface: #150b09;
-  --border: #35190f;
-  --text: #f1e6d9;
-  --text-dim: #b89c8b;
-  --text-faint: #6b564a;
-  --ember-2: #6b1405;
-  --ember-3: #b8330f;
-  --ember-4: #e8681f;
-  --iris: #ff3b1a;
-  --iris-glow: rgba(255, 59, 26, 0.55);
+  --bg: #f7f9fc;
+  --surface: #ffffff;
+  --border: #d7e1ec;
+  --text: #16202c;
+  --text-dim: #55647a;
+  --text-faint: #8b97a8;
+  --accent: #2f8fe0;
+  --accent-hover: #1f6fc0;
+  --accent-soft: rgba(47, 143, 224, 0.12);
+  --accent-glow: rgba(47, 143, 224, 0.35);
 
   --font-display: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-body: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 * { box-sizing: border-box; }
-html { color-scheme: dark; }
+html { color-scheme: light; }
 
 body {
   margin: 0;
@@ -54,73 +53,74 @@ body {
   align-items: center;
 }
 
-::selection { background: var(--iris-glow); color: var(--text); }
+::selection { background: var(--accent-soft); color: var(--text); }
 
-a { color: var(--ember-4); }
-a:hover { color: var(--iris); }
+a { color: var(--accent); }
+a:hover { color: var(--accent-hover); }
 a:focus-visible, button:focus-visible, input:focus-visible {
-  outline: 2px solid var(--iris);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-.stage {
-  position: relative;
-  width: 100%;
+/* A fixed overlay panel — stays put in the viewport while .bot-stage
+   scrolls underneath it. */
+.hero-top {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: calc(100% - 2.5rem);
   max-width: 720px;
-  min-height: 62vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  padding: var(--space, 2rem) 1.25rem 1rem;
+  padding: 1.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(20, 40, 70, 0.1);
+}
+
+/* Full figure, not cropped to a small window — tall enough that the whole
+   robot is visible by scrolling, rather than faded/masked at the edges.
+   Sits behind .hero-top and scrolls normally while that panel stays fixed. */
+.bot-stage {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 160vh;
   overflow: hidden;
 }
 
-.fire-canvas {
+.bot-embed,
+.bot-fallback {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
-  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 55%, black 40%, transparent 78%);
-  mask-image: radial-gradient(ellipse 60% 70% at 50% 55%, black 40%, transparent 78%);
-  opacity: 0.85;
+  transition: opacity 0.8s ease;
 }
-
-.eye-wrap {
-  position: relative;
-  z-index: 1;
-  width: min(420px, 70vw);
-  margin-bottom: -1.5rem;
+.bot-embed {
+  border: none;
+  opacity: 0; /* crossfaded in by nexus.js once the embed's `load` event fires */
+  pointer-events: none; /* purely decorative — no cursor-tracking, and lets
+    scroll/click pass through to the page instead of being captured by the
+    embed's own interactive controls */
 }
-
-.eye-wrap svg { width: 100%; height: auto; display: block; }
-
-.pupil {
-  transform-origin: 200px 100px;
-  animation: blink 9s ease-in-out infinite;
+.bot-embed.is-loaded { opacity: 1; }
+.bot-fallback {
+  object-fit: cover;
+  pointer-events: none;
+  /* Visible by default (progressive enhancement / prefers-reduced-motion
+     baseline, and while the live embed is still loading) — nexus.js
+     crossfades to the live embed once it's ready, so a blocked/failed
+     script or a slow load still shows the robot rather than nothing. */
 }
-.glow {
-  animation: pulse 4s ease-in-out infinite;
-  transform-origin: 200px 100px;
-}
-
-@keyframes blink {
-  0%, 92%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.06); }
-}
-@keyframes pulse {
-  0%, 100% { opacity: 0.75; }
-  50% { opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pupil, .glow { animation: none; }
-}
+.bot-fallback.is-hidden { opacity: 0; }
 
 .eyebrow {
-  position: relative;
-  z-index: 1;
   text-align: center;
   font-family: var(--font-display);
   font-weight: 700;
@@ -128,13 +128,10 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   text-transform: uppercase;
   font-size: clamp(1.3rem, 4.5vw, 2rem);
   color: var(--text);
-  text-shadow: 0 0 24px var(--iris-glow);
   margin: 0 0 0.4rem;
 }
 
 .subline {
-  position: relative;
-  z-index: 1;
   text-align: center;
   color: var(--text-dim);
   font-size: 0.85rem;
@@ -144,8 +141,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .subline strong { color: var(--text); font-weight: 500; }
 
 .ask-form {
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 520px;
   display: flex;
@@ -166,14 +161,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .ask-input::placeholder { color: var(--text-faint); }
 .ask-input:focus {
   outline: none;
-  border-color: var(--iris);
-  box-shadow: 0 0 0 3px var(--iris-glow);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .ask-submit {
-  background: var(--ember-2);
-  border: 1px solid var(--border);
-  color: var(--text);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #ffffff;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.8rem;
@@ -184,11 +179,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
-.ask-submit:hover { background: var(--ember-3); border-color: var(--ember-4); }
+.ask-submit:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 
 .chips {
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -197,9 +190,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   max-width: 560px;
 }
 .chip {
-  background: transparent;
+  background: var(--surface);
   border: 1px solid var(--border);
-  color: var(--text);
+  color: var(--text-dim);
   font-family: var(--font-body);
   font-size: 0.75rem;
   padding: 0.35rem 0.7rem;
@@ -207,11 +200,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   cursor: pointer;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
-.chip:hover { color: var(--ember-4); border-color: var(--ember-4); }
+.chip:hover { color: var(--accent); border-color: var(--accent); }
 
 .output {
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 560px;
   min-height: 1.6rem;
@@ -228,11 +219,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .output.pending { color: var(--text-faint); font-style: italic; }
 
 .gate-links {
-  position: relative;
-  z-index: 1;
   margin: 3rem 0 2.5rem;
   text-align: center;
   font-size: 0.8rem;
 }
 .gate-links a { text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
-.gate-links a:hover { border-color: var(--iris); }
+.gate-links a:hover { border-color: var(--accent); }

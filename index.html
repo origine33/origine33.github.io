@@ -3,56 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Eye</title>
-  <meta name="description" content="Ask the Eye anything about Joseph Diaz." />
-  <meta name="theme-color" content="#0a0605" />
-  <meta property="og:title" content="The Eye" />
-  <meta property="og:description" content="Ask the Eye anything about Joseph Diaz." />
+  <title>Nexus</title>
+  <meta name="description" content="Ask Nexus anything about Joseph Diaz." />
+  <meta name="theme-color" content="#f7f9fc" />
+  <meta property="og:title" content="Nexus" />
+  <meta property="og:description" content="Ask Nexus anything about Joseph Diaz." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="/assets/css/eye.css" />
+  <link rel="stylesheet" href="/assets/css/nexus.css" />
 </head>
 <body>
 
-  <div class="stage">
-    <canvas class="fire-canvas" data-fire aria-hidden="true"></canvas>
-
-    <div class="eye-wrap" aria-hidden="true">
-      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="iris" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stop-color="#ffb347" />
-            <stop offset="35%" stop-color="#ff3b1a" />
-            <stop offset="75%" stop-color="#7a0f04" />
-            <stop offset="100%" stop-color="#1a0402" />
-          </radialGradient>
-          <filter id="soften" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="6" />
-          </filter>
-          <filter id="blur-lg" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="16" />
-          </filter>
-        </defs>
-
-        <g class="glow" transform="rotate(-6 200 100)">
-          <path d="M 30,100 C 30,45 140,15 200,15 C 260,15 370,45 370,100 C 370,155 260,185 200,185 C 140,185 30,155 30,100 Z"
-                fill="#ff2a12" opacity="0.35" filter="url(#blur-lg)" />
-        </g>
-
-        <g transform="rotate(-6 200 100)">
-          <path d="M 40,100 C 40,55 135,30 200,30 C 265,30 360,55 360,100 C 360,145 265,170 200,170 C 135,170 40,145 40,100 Z"
-                fill="url(#iris)" stroke="#3a0a04" stroke-width="3" filter="url(#soften)" />
-          <path d="M 40,100 C 40,55 135,30 200,30 C 265,30 360,55 360,100 C 360,145 265,170 200,170 C 135,170 40,145 40,100 Z"
-                fill="none" stroke="#ffd7a0" stroke-width="1" opacity="0.5" />
-          <rect class="pupil" x="191" y="35" width="18" height="130" rx="9" fill="#0a0503" />
-        </g>
-      </svg>
-    </div>
-
-    <h1 class="eyebrow">The Eye</h1>
-    <p class="subline">It sees the whole of the Archive. Ask it anything about <strong>Joseph Diaz</strong> — his work, his skills, his homelab, his craft.</p>
+  <div class="hero-top">
+    <h1 class="eyebrow">Nexus</h1>
+    <p class="subline">An AI interface into <strong>Joseph Diaz</strong>'s work. Ask about his projects, his skills, or the homelab he runs.</p>
 
     <form class="ask-form" data-ask-form>
       <input
@@ -60,7 +26,7 @@
         type="text"
         name="question"
         data-ask-input
-        placeholder="Ask the Eye…"
+        placeholder="Ask Nexus…"
         autocomplete="off"
         maxlength="200"
       />
@@ -76,11 +42,30 @@
     <p class="output" data-ask-output></p>
   </div>
 
-  <div class="gate-links">
-    <a href="/portfolio.html">enter the archive →</a>
+  <div class="bot-stage">
+    <iframe
+      class="bot-embed"
+      data-bot-embed
+      data-src="https://app.spline.design/file/55efb9cc-d2fe-4ef3-ac87-ae125b52155b?view=preview"
+      title=""
+      loading="lazy"
+      aria-hidden="true"
+      tabindex="-1"
+    ></iframe>
+    <img
+      class="bot-fallback"
+      data-bot-fallback
+      src="/assets/img/nexbot-fallback.jpg"
+      alt=""
+      aria-hidden="true"
+    />
   </div>
 
-  <script src="/assets/js/eye.js"></script>
+  <div class="gate-links">
+    <a href="/portfolio.html">view the portfolio →</a>
+  </div>
+
+  <script src="/assets/js/nexus.js"></script>
   <script src="/assets/js/analytics.js"></script>
 </body>
 </html>

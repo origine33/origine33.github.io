@@ -1,5 +1,5 @@
 // First-party analytics — logs pageviews and link clicks to the same
-// Cloudflare Worker that powers the Eye (see eye-worker/src/index.js,
+// Cloudflare Worker that powers Nexus (see eye-worker/src/index.js,
 // POST /log). No third-party trackers, no cookies. Never blocks navigation:
 // click events use sendBeacon so they fire even as the page unloads.
 
