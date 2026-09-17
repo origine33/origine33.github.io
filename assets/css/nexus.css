@@ -120,6 +120,16 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .bot-fallback.is-hidden { opacity: 0; }
 
+@media (max-width: 640px) {
+  /* 160vh assumes a wide desktop viewport — on a narrow phone screen that's
+     an extremely tall, narrow box, which forces both the fallback image
+     (object-fit: cover) and the live embed's camera to zoom in tightly and
+     crop most of the robot out of view. A shorter box keeps the aspect
+     ratio closer to the scene's own (wide) framing. */
+  .bot-stage { height: 70vh; }
+  .bot-fallback { object-fit: contain; }
+}
+
 .eyebrow {
   text-align: center;
   font-family: var(--font-display);
