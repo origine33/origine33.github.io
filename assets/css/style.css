@@ -168,12 +168,17 @@ a:focus-visible, button:focus-visible {
 .titlebar-nav a:hover::after { transform: scaleX(1); }
 
 @media (max-width: 640px) {
+  /* Padding-top on .titlebar-inner alone doesn't move the bar itself — a
+     sticky element's top edge sits flush at the true top of the page
+     regardless of its own content's padding. Push the whole bar down by
+     giving body matching top spacing, with .titlebar's sticky offset set
+     to the same value so it stays put (rather than jumping flush to the
+     true top) once scrolled past that point. */
+  body { padding-top: max(0.6rem, env(safe-area-inset-top)); }
+  .titlebar { top: max(0.6rem, env(safe-area-inset-top)); }
   .titlebar-tab { display: none; }
   .titlebar-inner {
-    /* A bit of breathing room above the bar's content — on notched/Dynamic
-       Island phones this also clears that cutout instead of sitting flush
-       against it. */
-    padding-top: max(0.6rem, env(safe-area-inset-top));
+    padding-top: 0.6rem;
     padding-bottom: 0.6rem;
     height: auto;
   }
