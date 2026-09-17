@@ -128,19 +128,23 @@ function answerFor(question) {
 // worse on mobile) finally renders. Crossfading on `load` alone risked
 // revealing that black loading screen instead of either our fallback image
 // or the finished scene — which is exactly the "sometimes just shows black"
-// bug. So: require `load` to have fired AND a minimum buffer to have
-// elapsed since we set `src`, whichever is later, before crossfading — this
-// isn't a perfect signal, but it makes revealing the black interim state
-// far less likely.
+// bug. So: prefer to wait for `load` plus a minimum buffer — but `load`
+// isn't guaranteed to fire (e.g. a mobile bfcache restore doesn't refire
+// it), so a hard maximum timeout always reveals eventually regardless,
+// rather than getting stuck showing the static fallback forever.
 (function () {
   const embed = document.querySelector("[data-bot-embed]");
   if (!embed || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  const MIN_DELAY_MS = 8000;
+  const MIN_DELAY_MS = 6000;
+  const MAX_WAIT_MS = 20000;
   const fallback = document.querySelector("[data-bot-fallback]");
   let loaded = false;
+  let revealed = false;
 
   function reveal() {
+    if (revealed) return;
+    revealed = true;
     embed.classList.add("is-loaded");
     if (fallback) fallback.classList.add("is-hidden");
   }
@@ -154,7 +158,7 @@ function answerFor(question) {
 
   (function waitForReadyish() {
     const elapsed = Date.now() - startedAt;
-    if (loaded && elapsed >= MIN_DELAY_MS) {
+    if ((loaded && elapsed >= MIN_DELAY_MS) || elapsed >= MAX_WAIT_MS) {
       reveal();
       return;
     }

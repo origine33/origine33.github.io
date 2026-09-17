@@ -174,8 +174,8 @@ a:focus-visible, button:focus-visible {
      giving body matching top spacing, with .titlebar's sticky offset set
      to the same value so it stays put (rather than jumping flush to the
      true top) once scrolled past that point. */
-  body { padding-top: max(0.6rem, env(safe-area-inset-top)); }
-  .titlebar { top: max(0.6rem, env(safe-area-inset-top)); }
+  body { padding-top: max(1.75rem, env(safe-area-inset-top) + 0.75rem); }
+  .titlebar { top: max(1.75rem, env(safe-area-inset-top) + 0.75rem); }
   .titlebar-tab { display: none; }
   .titlebar-inner {
     padding-top: 0.6rem;
