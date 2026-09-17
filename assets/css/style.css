@@ -133,16 +133,6 @@ a:focus-visible, button:focus-visible {
   gap: var(--space-3);
 }
 
-.dots { display: flex; gap: 7px; flex-shrink: 0; }
-.dots span {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: var(--surface-raised);
-  border: 1px solid var(--border);
-}
-.dots span:nth-child(1) { background: #ff5f57; border-color: #e0443e; }
-.dots span:nth-child(2) { background: #febc2e; border-color: #dea123; }
-.dots span:nth-child(3) { background: #28c840; border-color: #1aab29; }
-
 .titlebar-tab {
   font-size: 0.75rem;
   color: var(--text-dim);
