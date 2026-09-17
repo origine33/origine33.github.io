@@ -48,8 +48,8 @@
     <section id="about">
       <div class="cmd"><span class="prompt">$ cat about.md</span><span class="rule"></span></div>
       <div class="about-body">
-        <p>A technology enthusiast driven by where things are headed. I build and ship AI and ML systems as part of Major League Baseball Technology, and outside of work I run the same kind of experiments at home — most recently a homelab that mostly runs itself.</p>
-        <dl class="facts">
+        <p data-reveal>A technology enthusiast driven by where things are headed. I build and ship AI and ML systems as part of Major League Baseball Technology, and outside of work I run the same kind of experiments at home — most recently a homelab that mostly runs itself.</p>
+        <dl class="facts" data-reveal>
           <dt>based</dt><dd>New York, NY</dd>
           <dt>focus</dt><dd>AI/ML enablement, workplace technology, platform engineering</dd>
           <dt>stack</dt>
@@ -65,7 +65,7 @@
         </dl>
 
         <div class="panel-label" style="margin-top: var(--space-4);">// certifications</div>
-        <div class="cred-log">
+        <div class="cred-log" data-reveal>
           <div class="cred-line"><span class="cred-date">aug 2026</span><a class="cred-name" href="https://www.credly.com/badges/b04c1371-9a6f-42fd-89a9-8b664f79ed10/linked_in_profile" target="_blank" rel="noopener">Okta for AI Agents</a><span class="cred-issuer"> — Okta</span></div>
           <div class="cred-line"><span class="cred-date">jun 2026</span><a class="cred-name" href="https://www.coursera.org/account/accomplishments/specialization/OZE96OSJ0IGH" target="_blank" rel="noopener">Prompt Engineering</a><span class="cred-issuer"> — Vanderbilt University</span></div>
           <div class="cred-line"><span class="cred-date">jun 2026</span><a class="cred-name" href="https://www.coursera.org/account/accomplishments/records/ICUQ3NPE1EM8" target="_blank" rel="noopener">ChatGPT Advanced Data Analysis</a><span class="cred-issuer"> — Vanderbilt University</span></div>
@@ -82,7 +82,7 @@
     <section id="experience">
       <div class="cmd"><span class="prompt">$ history</span><span class="rule"></span></div>
       <div class="role-list">
-        <div class="role">
+        <div class="role" data-reveal>
           <div class="role-head">
             <span class="role-title">Service Desk &amp; Technical Analyst</span>
             <span class="role-company">Major League Baseball</span>
@@ -95,7 +95,7 @@
             <li>Maintained technical documentation and data schemas across the incident management ecosystem to keep automated reporting accurate.</li>
           </ul>
         </div>
-        <div class="role">
+        <div class="role" data-reveal>
           <div class="role-head">
             <span class="role-title">IT Service Desk &amp; Data Analyst</span>
             <span class="role-company">Major League Baseball</span>
@@ -107,7 +107,7 @@
             <li>Managed asset and inventory datasets, tracking hardware/software lifecycles through structured database management.</li>
           </ul>
         </div>
-        <div class="role">
+        <div class="role" data-reveal>
           <div class="role-head">
             <span class="role-title">Information Security Intern</span>
             <span class="role-company">Major League Baseball</span>
@@ -124,22 +124,22 @@
     <section id="projects">
       <div class="cmd"><span class="prompt">$ ls -la ~/projects</span><span class="rule"></span></div>
       <div class="proj-list">
-        <div class="proj">
+        <div class="proj" data-reveal>
           <div class="proj-name"><span class="slash">/</span><a href="#homelab">homelab-agent</a><span class="proj-pin">pinned</span></div>
           <div class="proj-desc">A home server running a Docker media/ops stack, maintained by a Claude-based agent that health-checks, diagnoses, and fixes things on its own.</div>
           <div class="proj-tags">docker · claude · macos</div>
         </div>
-        <div class="proj">
+        <div class="proj" data-reveal>
           <div class="proj-name"><span class="slash">/</span><a href="#printer-agent">printer-agent</a><span class="proj-pin">pinned</span></div>
           <div class="proj-desc">Turned an existing PrinterLogic install into a full monitoring system: a live Datadog dashboard, automatic Slack alerts and reports, and a Slack bot IT can just ask.</div>
           <div class="proj-tags">snmp · datadog · slack</div>
         </div>
-        <div class="proj">
+        <div class="proj" data-reveal>
           <div class="proj-name"><span class="slash">/</span><a href="https://github.com/origine33/origine33.github.io" target="_blank" rel="noopener">this-website</a></div>
           <div class="proj-desc">This site itself — a terminal-styled archive plus "The Eye," a fire-animated gate page where an LLM answers questions about Joseph, grounded only in what's actually on the site.</div>
           <div class="proj-tags">github pages · cloudflare · claude code</div>
         </div>
-        <div class="proj">
+        <div class="proj" data-reveal>
           <div class="proj-name"><span class="slash">/</span><span class="fill">more to come…</span></div>
           <div class="proj-desc fill">still building — check back soon.</div>
           <div class="proj-tags"></div>
@@ -151,7 +151,7 @@
       <div class="cmd"><span class="prompt">$ ssh homelab.local</span><span class="rule"></span></div>
 
       <div class="homelab-grid">
-        <div>
+        <div data-reveal>
           <div class="panel-label">// architecture</div>
           <div class="tree">homelab/
 <span class="dim">├──</span> <span class="node">host-01/</span>              <span class="meta">Apple Silicon · 16GB RAM · macOS</span>
@@ -163,7 +163,7 @@
 <span class="dim">└──</span> <span class="node">homelab-agent</span>         <span class="meta">claude-powered · autonomous ops</span></div>
         </div>
 
-        <div>
+        <div data-reveal>
           <div class="panel-label">// live status</div>
           <div class="status-table">
             <table class="status" data-status-table>
@@ -191,7 +191,7 @@
         </div>
       </div>
 
-      <div class="homelab-copy">
+      <div class="homelab-copy" data-reveal>
         <p>The stack runs on a small home server instead of a dedicated NAS OS — Apple Silicon rules out the usual x86 bare-metal options, so everything lives in Docker on macOS instead. Config and secrets stay on the internal disk; bulk media sits on external APFS drives.</p>
         <p>Since July 2026 it's been looked after by an <strong>autonomous agent</strong> built on Claude: it runs from a set of runbooks (health check, diagnose, restart, backup), reads and writes its own memory of what it's learned about the system, and fixes routine problems without being asked — it only pauses for anything destructive.</p>
       </div>
@@ -200,62 +200,62 @@
     <section id="printer-agent">
       <div class="cmd"><span class="prompt">$ ./printer-agent status</span><span class="rule"></span></div>
 
-      <div class="homelab-copy">
+      <div class="homelab-copy" data-reveal>
         <p>Built on top of an existing PrinterLogic install for a printer fleet at work — no new hardware, no new paid software, just automation layered on data the fleet was already producing.</p>
       </div>
 
       <div class="panel-label">// build log</div>
       <ol class="steps">
-        <li class="step">
+        <li class="step" data-reveal>
           <span class="step-index">01</span>
           <div>
             <div class="step-title">Found the local monitoring source</div>
             <div class="step-desc">Located the PrinterLogic desktop client already running and its SNMP log, which tracks whether each printer on the network is reachable.</div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal>
           <span class="step-index">02</span>
           <div>
             <div class="step-title">Polled for live detail</div>
             <div class="step-desc">Went beyond up/down status by polling each printer directly for toner level per color, paper tray level and size, and error codes.</div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal>
           <span class="step-index">03</span>
           <div>
             <div class="step-title">Built a Datadog dashboard</div>
             <div class="step-desc">Shipped the metrics to Datadog: total healthy printers, toner by printer/color, paper by tray, and a breakdown of error types across the fleet.</div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal>
           <span class="step-index">04</span>
           <div>
             <div class="step-title">Added an automatic alert</div>
             <div class="step-desc">A Datadog monitor flags any printer the moment a cartridge hits empty or drops below a low threshold.</div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal>
           <span class="step-index">05</span>
           <div>
             <div class="step-title">Automated a daily report</div>
             <div class="step-desc">A scheduled script checks every printer each morning and posts a PDF report to Slack listing what needs toner or paper.</div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal>
           <span class="step-index">06</span>
           <div>
             <div class="step-title">Built a Slack bot for on-demand answers</div>
             <div class="step-desc">IT staff can message it directly — "toner", "status", a printer's name — and get a live answer instead of opening a console.</div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal>
           <span class="step-index">07</span>
           <div>
             <div class="step-title">Automated weekly maintenance</div>
             <div class="step-desc">The fleet power-cycles automatically every Sunday morning, with a Slack summary confirming how many printers rebooted successfully.</div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal>
           <span class="step-index">08</span>
           <div>
             <div class="step-title">Documented everything</div>
@@ -264,7 +264,7 @@
         </li>
       </ol>
 
-      <div class="homelab-copy">
+      <div class="homelab-copy" data-reveal>
         <p>None of it required new infrastructure — it reused data the fleet was already producing. The same pattern (parse what already exists, automate the repetitive checks, add a simple way to ask) applies to almost any recurring IT task: server health, license renewals, backup checks, ticket triage.</p>
       </div>
     </section>
@@ -272,7 +272,7 @@
     <section id="contact">
       <div class="cmd"><span class="prompt">$ ./contact.sh</span><span class="rule"></span></div>
       <p style="color:var(--text-dim); max-width:56ch;">Open to new roles in AI/ML and platform engineering.</p>
-      <div class="contact-links">
+      <div class="contact-links" data-reveal>
         <a href="mailto:josephdiaz17@gmail.com">email →</a>
         <a href="https://github.com/origine33" target="_blank" rel="noopener">github →</a>
         <a href="https://www.linkedin.com/in/josephdiaz17" target="_blank" rel="noopener">linkedin →</a>
@@ -281,7 +281,7 @@
 
     <section id="hobbies">
       <div class="cmd"><span class="prompt">$ cat ~/.hobbies</span><span class="rule"></span></div>
-      <dl class="facts">
+      <dl class="facts" data-reveal>
         <dt>runescape</dt>
         <dd><a href="https://www.runeprofile.com/voldimordt" target="_blank" rel="noopener">voldimordt →</a></dd>
         <dt>basketball</dt>
@@ -298,6 +298,7 @@
 
   </main>
 
+  <script src="/assets/js/reveal.js"></script>
   <script src="/assets/js/status.js"></script>
   <script src="/assets/js/analytics.js"></script>
 </body>
