@@ -136,8 +136,8 @@ function answerFor(question) {
   const embed = document.querySelector("[data-bot-embed]");
   if (!embed || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  const MIN_DELAY_MS = 6000;
-  const MAX_WAIT_MS = 20000;
+  const MIN_DELAY_MS = 2000;
+  const MAX_WAIT_MS = 12000;
   const fallback = document.querySelector("[data-bot-fallback]");
   let loaded = false;
   let revealed = false;
