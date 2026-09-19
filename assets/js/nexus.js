@@ -116,9 +116,9 @@ function answerFor(question) {
   return best ? best.answer : FALLBACK;
 }
 
-// ---------- NEXBOT (embedded Spline scene) ----------
-// A community Spline scene (community.spline.design/file/615b9422-9985-43f6-
-// 8593-d7d7bc3b0be1) — purely decorative (nexus.css sets pointer-events:none
+// ---------- Reactive Orb (embedded Spline scene) ----------
+// A remix of a community Spline scene, published at my.spline.design —
+// purely decorative (nexus.css sets pointer-events:none
 // on the embed so it never captures clicks/scroll for its own cursor-tracking
 // or camera controls; the page scrolls normally no matter where the cursor
 // is). It's a cross-origin iframe, so we can't tell when the 3D scene has
