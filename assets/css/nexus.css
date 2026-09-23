@@ -83,8 +83,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   box-shadow: 0 10px 30px rgba(20, 40, 70, 0.1);
 }
 
-/* Full figure, not cropped to a small window — tall enough that the whole
-   robot is visible by scrolling, rather than faded/masked at the edges.
+/* Tall enough to give the particle field room to breathe while scrolling.
    Sits behind .hero-top and scrolls normally while that panel stays fixed. */
 .bot-stage {
   position: relative;
@@ -94,31 +93,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   overflow: hidden;
 }
 
-.bot-embed,
-.bot-fallback {
+.particle-stage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  transition: opacity 0.8s ease;
+  pointer-events: none; /* purely decorative — lets scroll/click pass through */
 }
-.bot-embed {
-  border: none;
-  opacity: 0; /* crossfaded in by nexus.js once the embed's `load` event fires */
-  pointer-events: none; /* purely decorative — no cursor-tracking, and lets
-    scroll/click pass through to the page instead of being captured by the
-    embed's own interactive controls */
-}
-.bot-embed.is-loaded { opacity: 1; }
-.bot-fallback {
-  object-fit: cover;
-  pointer-events: none;
-  /* Visible by default (progressive enhancement / prefers-reduced-motion
-     baseline, and while the live embed is still loading) — nexus.js
-     crossfades to the live embed once it's ready, so a blocked/failed
-     script or a slow load still shows the robot rather than nothing. */
-}
-.bot-fallback.is-hidden { opacity: 0; }
 
 .eyebrow {
   text-align: center;

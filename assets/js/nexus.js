@@ -116,56 +116,6 @@ function answerFor(question) {
   return best ? best.answer : FALLBACK;
 }
 
-// ---------- Reactive Orb (embedded Spline scene) ----------
-// A remix of a community Spline scene, published at my.spline.design —
-// purely decorative (nexus.css sets pointer-events:none
-// on the embed so it never captures clicks/scroll for its own cursor-tracking
-// or camera controls; the page scrolls normally no matter where the cursor
-// is). It's a cross-origin iframe, so we can't tell when the 3D scene has
-// actually finished rendering — the iframe's `load` event only means the
-// Spline app's own shell has loaded, which shows a plain BLACK loading
-// screen of its own before the scene (10-20s+ on a slow connection/GPU,
-// worse on mobile) finally renders. Crossfading on `load` alone risked
-// revealing that black loading screen instead of either our fallback image
-// or the finished scene — which is exactly the "sometimes just shows black"
-// bug. So: prefer to wait for `load` plus a minimum buffer — but `load`
-// isn't guaranteed to fire (e.g. a mobile bfcache restore doesn't refire
-// it), so a hard maximum timeout always reveals eventually regardless,
-// rather than getting stuck showing the static fallback forever.
-(function () {
-  const embed = document.querySelector("[data-bot-embed]");
-  if (!embed || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const MIN_DELAY_MS = 3500;
-  const MAX_WAIT_MS = 12000;
-  const fallback = document.querySelector("[data-bot-fallback]");
-  let loaded = false;
-  let revealed = false;
-
-  function reveal() {
-    if (revealed) return;
-    revealed = true;
-    embed.classList.add("is-loaded");
-    if (fallback) fallback.classList.add("is-hidden");
-  }
-
-  embed.addEventListener("load", () => {
-    loaded = true;
-  });
-
-  const startedAt = Date.now();
-  embed.src = embed.dataset.src;
-
-  (function waitForReadyish() {
-    const elapsed = Date.now() - startedAt;
-    if ((loaded && elapsed >= MIN_DELAY_MS) || elapsed >= MAX_WAIT_MS) {
-      reveal();
-      return;
-    }
-    setTimeout(waitForReadyish, 300);
-  })();
-})();
-
 // ---------- UI wiring ----------
 
 document.addEventListener("DOMContentLoaded", () => {
