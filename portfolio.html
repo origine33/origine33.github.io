@@ -24,6 +24,7 @@
         <a href="#about">about</a>
         <a href="#experience">experience</a>
         <a href="#projects">projects</a>
+        <a href="#fashionvibes">fashionvibes</a>
         <a href="#homelab">homelab</a>
         <a href="#printer-agent">printer-agent</a>
         <a href="#contact">contact</a>
@@ -125,6 +126,11 @@
       <div class="cmd"><span class="prompt">$ ls -la ~/projects</span><span class="rule"></span></div>
       <div class="proj-list">
         <div class="proj" data-reveal>
+          <div class="proj-name"><span class="slash">/</span><a href="#fashionvibes">fashionvibes</a><span class="proj-pin">pinned</span></div>
+          <div class="proj-desc">An AI wardrobe app: photograph your closet, AI tags every item, and it builds full outfits from what you already own for any "vibe" you ask for — each paired with a matching Spotify track. React Native mobile app, Fastify API, Postgres, and a self-hosted GPU service I built to cut the app's dominant per-image cost.</div>
+          <div class="proj-tags">react native · fastify · postgres · ai/llm</div>
+        </div>
+        <div class="proj" data-reveal>
           <div class="proj-name"><span class="slash">/</span><a href="#homelab">homelab-agent</a><span class="proj-pin">pinned</span></div>
           <div class="proj-desc">A home server running a Docker media/ops stack, maintained by a Claude-based agent that health-checks, diagnoses, and fixes things on its own.</div>
           <div class="proj-tags">docker · claude · macos</div>
@@ -140,15 +146,46 @@
           <div class="proj-tags">github pages · cloudflare · claude code</div>
         </div>
         <div class="proj" data-reveal>
-          <div class="proj-name"><span class="slash">/</span><a href="https://fashionvibes.cc" target="_blank" rel="noopener">fashionvibes-bgremoval</a></div>
-          <div class="proj-desc">Built a self-hosted, GPU-accelerated background-removal service for FashionVibes, an AI wardrobe app — replacing a paid per-image API with open-source segmentation running on a home Mac Mini, exposed securely over a Cloudflare Tunnel with an automatic fallback so reliability doesn't change.</div>
-          <div class="proj-tags">fastapi · rembg · cloudflare tunnel · macos launchd</div>
-        </div>
-        <div class="proj" data-reveal>
           <div class="proj-name"><span class="slash">/</span><span class="fill">more to come…</span></div>
           <div class="proj-desc fill">still building — check back soon.</div>
           <div class="proj-tags"></div>
         </div>
+      </div>
+    </section>
+
+    <section id="fashionvibes">
+      <div class="cmd"><span class="prompt">$ cat fashionvibes/README.md</span><span class="rule"></span></div>
+
+      <div class="homelab-copy" data-reveal>
+        <p>FashionVibes is an AI wardrobe app: photograph your closet, AI tags every item (category, color, style, season), and it builds full outfits entirely from what you already own for any "vibe" you ask for — Y2K, streetwear, business casual — each with a written rationale and a matching Spotify track that autoplays. Free/Pro subscription via Apple In-App Purchase.</p>
+      </div>
+
+      <div class="homelab-grid">
+        <div data-reveal>
+          <div class="panel-label">// services</div>
+          <div class="tree">fashionvibes.cc/
+<span class="dim">├──</span> <span class="node">mobile/</span>                  <span class="meta">Expo · React Native · iOS</span>
+<span class="dim">│   ├──</span> <span class="node">closet</span>              <span class="meta">camera capture → AI tagging pipeline</span>
+<span class="dim">│   ├──</span> <span class="node">ai-stylist</span>          <span class="meta">vibe → generated outfit + rationale</span>
+<span class="dim">│   └──</span> <span class="node">sharing</span>             <span class="meta">Instagram Stories share sheet</span>
+<span class="dim">├──</span> <span class="node">api/</span>                      <span class="meta">Fastify · TypeScript · Fly.io</span>
+<span class="dim">│   ├──</span> <span class="node">vision + outfit-llm</span> <span class="meta">swappable Claude / OpenAI / Gemini providers</span>
+<span class="dim">│   ├──</span> <span class="node">bg-removal</span>          <span class="meta">self-hosted GPU service + paid-API fallback</span>
+<span class="dim">│   ├──</span> <span class="node">spotify</span>             <span class="meta">OAuth + vibe→track matching + native playback</span>
+<span class="dim">│   └──</span> <span class="node">billing</span>             <span class="meta">RevenueCat webhook → Apple IAP</span>
+<span class="dim">├──</span> <span class="node">database/</span>                 <span class="meta">Postgres via Prisma (Neon)</span>
+<span class="dim">├──</span> <span class="node">storage/</span>                  <span class="meta">S3-compatible object storage (R2)</span>
+<span class="dim">└──</span> <span class="node">web/</span>                      <span class="meta">marketing site + account portal · Cloudflare Workers</span></div>
+        </div>
+
+        <div data-reveal>
+          <div class="panel-label">// my build: cost-optimized background removal</div>
+          <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.7;">Background removal on every closet photo was the app's single largest per-image cost, run through a paid third-party API. I built a self-hosted replacement: an open-source segmentation model accelerated on a home Mac Mini's GPU, served persistently and exposed securely over a Cloudflare Tunnel — no ports opened, no exposed home IP. The backend tries it first and falls back automatically to the paid API on any failure, so reliability doesn't change even though the primary cost does.</p>
+        </div>
+      </div>
+
+      <div class="homelab-copy" data-reveal>
+        <p>Auth is email/password with rotating refresh tokens; both AI steps (clothing tagging and outfit reasoning) run through a swappable provider interface, so the model behind either one can change without touching the rest of the pipeline. Source: <a href="https://github.com/origine33/fashionvibes-cc" target="_blank" rel="noopener">github.com/origine33/fashionvibes-cc</a> (private repo).</p>
       </div>
     </section>
 
